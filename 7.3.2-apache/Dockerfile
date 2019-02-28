@@ -14,7 +14,6 @@ RUN apt-get update \
         libpng-dev \
         libjpeg-dev \
         libpq-dev \
-        libmcrypt-dev \
         libldap2-dev \
         libldb-dev \
         libicu-dev \
@@ -24,8 +23,11 @@ RUN apt-get update \
         libtidy-dev \
         libkrb5-dev \
         libxslt-dev \
+        libzip-dev \
         unixodbc-dev \
         openssh-server \
+        openssl \
+        libssl-dev \
         vim \
         curl \
         wget \
@@ -38,7 +40,6 @@ RUN apt-get update \
     && ln -s /usr/include/x86_64-linux-gnu/gmp.h /usr/include/gmp.h \
     && rm -rf /var/lib/apt/lists/* \
     && pecl install imagick-beta \
-    && pecl install mcrypt-1.0.1 \
     && pecl install sqlsrv pdo_sqlsrv \
     && echo extension=pdo_sqlsrv.so >> `php --ini | grep "Scan for additional .ini files" | sed -e "s|.*:\s*||"`/30-pdo_sqlsrv.ini \
     && echo extension=sqlsrv.so >> `php --ini | grep "Scan for additional .ini files" | sed -e "s|.*:\s*||"`/20-sqlsrv.ini \
@@ -74,8 +75,7 @@ RUN apt-get update \
         wddx \
         xmlrpc \
         xsl \
-    && docker-php-ext-enable imagick \
-    && docker-php-ext-enable mcrypt
+    && docker-php-ext-enable imagick
 
 # install odbc php ext
 RUN apt-get update \
